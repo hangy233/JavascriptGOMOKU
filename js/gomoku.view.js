@@ -12,5 +12,4 @@ gomoku.view = (function () {
 	return {
 		showScreen : showScreen
 	};
-
 })();
