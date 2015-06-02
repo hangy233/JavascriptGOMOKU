@@ -2,28 +2,53 @@
 <html >
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 		<title>gomoku</title>
 		<link rel="stylesheet" type="text/css" href="styles/main.css"/>
  	</head>
 	<body >
 		<div id="gomoku">
-			<div class="screen" id="splash-screen">
+			<div class="screen" id="splash_screen">
 				<h1 class = "logo">GOMOKU</h1>
-				<div class = "mode">
+				<div class = "menu_button" id = "one_player">
 					<div id = "tri"></div>One Player
 				</div>
-				<div class = "mode">
+				<div class = "menu_button" id = "two_players">
 					<div id = "tri"></div>Two Players
 				</div>
+				<div class = "menu_button" id = "about">
+					<div id = "tri"></div>About
+				</div>
+				<!--exit button for mobile app.........
+				<div class = "menu_button" id = "exit">
+					<div id = "tri"></div>Exit
+				</div>
+				....................................-->
 			</div>
-			<div class="screen" id="game-board">
+
+			<div class="screen" id="game_board">
 				
 			</div>
+
+			<div class="screen" id="about_screen">
+
+			</div>
+
+			<div class="screen" id="pause_menu">
+				<div class="button_holder">
+					<div class = "menu_button" id = "resume">Resume</div>
+					<div class = "menu_button" id = "main-menu">Main Menu</div>
+					<div class = "menu_button" id = "replay">Replay</div>
+				</div>
+			</div>
+
 		</div>
 	    <script type="text/javascript" src="js/gomoku.js"></script>
 	    <script>
 	    	window.addEventListener("load",function(){
-	    		gomoku.load("js/jquery-2.1.4.min.js",gomoku.setup);
+	    		gomoku.load("js/jquery-2.1.4.min.js");
+	    		gomoku.load("js/gomoku.view.js");
+	    		gomoku.load("js/gomoku.controller.js", gomoku.init);
 	    	});
 	    </script>
 	</body>

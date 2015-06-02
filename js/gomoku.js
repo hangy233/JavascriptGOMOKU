@@ -1,10 +1,11 @@
-var gomoku = (function(){
+var gomoku = (function () {
 	var scriptQueue = [],
 		numResourcesLoaded = 0,
 		numResources = 0,
 		executRunning = false;
 
-	var executeScriptQueue = function() {
+	//execute the loaded scripts and callback
+	var _executeScriptQueue = function () {
 		var next = scriptQueue[0],
 			first,
 			script;
@@ -18,7 +19,7 @@ var gomoku = (function(){
 				if(next.callback){
 					next.callback();
 				}
-				executeScriptQueue();
+				_executeScriptQueue();
 			};
 			script.src = next.src;
 			first.parentNode.insertBefore(script, first);
@@ -29,10 +30,10 @@ var gomoku = (function(){
 	};
 
 	//load scripts as images. They are not executed at this point
-	var load = function(src, callback) {
+	var load = function (src, callback) {
 		var image,
 			queueEntry;
-		numResources+=1;
+		numResources += 1;
 
 		//add this resource to the execution queue
 		queueEntry = {
@@ -47,30 +48,22 @@ var gomoku = (function(){
 			numResourcesLoaded+=1;
 			queueEntry.loaded = true;
 			if(!executRunning){
-				executeScriptQueue();
+				_executeScriptQueue();
 			}
 		};
 		image.src = src;
 	};
 
-	var showScreen = function(screenId){
-		var activeScreen = $("#gomoku .screen .active"),
-			nextActiveScreen = $("#" + screenId);
-		if(activeScreen){
-			activeScreen.removeClass("active");
-		}
-		nextActiveScreen.addClass("active");
-	};
-
-	var setup = function(){
+	//invoke after all the scripts loaded
+	var init = function (){
 		//console.log("scripts loaded successfully");
-		gomoku.showScreen("splash-screen");
+		gomoku.view.showScreen("splash_screen");
+		gomoku.controller.init();
 	};
 
 	return {
 		load: load,
-		setup: setup,
-		showScreen: showScreen
+		init: init
 	};
 
 })();

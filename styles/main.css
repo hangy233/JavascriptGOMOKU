@@ -11,42 +11,113 @@
 	src: url("../fonts/consola.ttf") format("truetype");
 }
 
+@media (max-width: 970px ) and (orientation: portrait)
+{
+	h1{
+		font-family: "OCRAStd";
+		color: white;
+		font-size: 4.5em;
+		text-align: center;
+	}
+
+	.screen .menu_button #tri{
+		width: 1em;
+		height: 1em;
+		background-color: white;
+		display:inline-block;
+		float: left;
+		opacity: 0;
+		border-radius: 60px;
+		-webkit-transition:  0.5s; /* Safari */
+	    transition:  0.5s;
+	}
+
+	.screen .menu_button{
+		font-family: "consola";
+		color: white;
+		font-size: 2em;
+		margin: auto;
+		width: 9em;
+		margin-bottom: 1em;
+		text-align: center;
+	}
+}
+
+@media (max-width: 970px ) and (orientation: landscape)
+{
+	h1{
+		font-family: "OCRAStd";
+		color: white;
+		font-size: 4.5em;
+		text-align: center;
+		margin-top: 20px;
+		margin-bottom:20px;
+	}
+	
+	.screen .menu_button #tri{
+		width: 0.5em;
+		height: 0.5em;
+		background-color: white;
+		display:inline-block;
+		float: left;
+		opacity: 0;
+		border-radius: 60px;
+		-webkit-transition:  0.5s; /* Safari */
+	    transition:  0.5s;
+	}
+
+	.screen .menu_button{
+		font-family: "consola";
+		color: white;
+		font-size: 1em;
+		margin: auto;
+		width: 9em;
+		margin-bottom: 0.5em;
+		text-align: center;
+	}
+}
+
+@media (min-width: 970px ) 
+{
+	h1{
+		font-family: "OCRAStd";
+		color: white;
+		font-size: 14em;
+		text-align: center;
+	}
+
+
+	.screen .menu_button #tri{
+		width: 1em;
+		height: 1em;
+		background-color: white;
+		display:inline-block;
+		float: left;
+		opacity: 0;
+		border-radius: 60px;
+		-webkit-transition:  0.5s; /* Safari */
+	    transition:  0.5s;
+	}
+
+	.screen .menu_button{
+		font-family: "consola";
+		color: white;
+		font-size: 2em;
+		margin: auto;
+		width: 9em;
+		margin-bottom: 1em;
+		text-align: center;
+	}
+}
+
+
 body{
 	margin: 0;
 	overflow: hidden;
 }
 
-h1{
-	font-family: "OCRAStd";
-	color: white;
-	font-size: 14em;
-	text-align: center;
-}
-
-.screen .mode #tri{
-	width: 1em;
-	height: 1em;
-	background-color: white;
-	display:inline-block;
-	float: left;
-	opacity: 0;
-	border-radius: 60px;
-	-webkit-transition:  0.5s; /* Safari */
-    transition:  0.5s;
-}
-
-.screen .mode:hover>#tri{
+.screen .menu_button:hover>#tri{
 	opacity: 1;
-}
-
-.screen .mode{
-	font-family: "consola";
-	color: white;
-	font-size: 2em;
-	margin: auto;
-	width: 9em;
-	margin-bottom: 1em;
-	text-align: center;
 }
 
 #gomoku{
