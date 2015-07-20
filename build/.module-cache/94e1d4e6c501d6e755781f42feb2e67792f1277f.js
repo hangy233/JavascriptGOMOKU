@@ -6,7 +6,7 @@ var gomoku = (function(){
         };
         
     var init = function() {
-        React.render(<Board size={settings.size}/>, document.getElementById('gomoku-container'));
+        React.render(React.createElement(Board, {size: settings.size}), document.getElementById('gomoku-container'));
         zoomBoard();
         setUp(15,"freestyle");
     };
@@ -30,7 +30,6 @@ var gomoku = (function(){
     
     var setUp = function(size,newRule){
         settings.rule = newRule || "freestyle";
-        units = [];
         for (var i = 0; i < size; i++) {
             units.push([]);
             for(var j = 0; j< size ; j++){
@@ -264,7 +263,7 @@ var gomoku = (function(){
                             score += 100;
                         }
                         if(gameWin(i, j, !color)){
-                            score += 200;
+                            score += 100;
                         }
                         var counts = checkRow(i, j, color),
                             live = rowIsAlive(i, j, color),
@@ -275,12 +274,8 @@ var gomoku = (function(){
                             
                         AIScoreBase = calScoreBase(counts, live);
                         humanScoreBase = calScoreBase(humanCounts, humanLive);
-                        if(calScore(AIScoreBase)>1){
-                            score += calScore(AIScoreBase) + 1;
-                        }else{
-                            score += calScore(AIScoreBase);
-                        }
-                        score +=calScore(humanScoreBase);
+                        score +=calScore(AIScoreBase);
+                        //score +=calScore(humanScoreBase);
                         
                     }
                     unitsScore.push({
@@ -315,8 +310,8 @@ var gomoku = (function(){
             
             //console.log(unitsScore);
             //console.log(unitsScore[Math.floor(Math.random()*(unitsScore.length))].pos);
-            console.log(units);
-            if(max == 225 ){
+            console.log(max);
+            if(max == 255 ){
                 return {i:7,j:7};
             }
             else{
@@ -328,7 +323,6 @@ var gomoku = (function(){
     var gameWin = function(i,j,color) {
         var counts = checkRow(i,j,color);
         //console.log(counts);
-        
         switch (settings.rule) {
             case 'freestyle':
                 for (var directions in counts) {
@@ -350,7 +344,9 @@ var gomoku = (function(){
                     }
                 }
                 return false;
+                
         }
+        
         
         
     };

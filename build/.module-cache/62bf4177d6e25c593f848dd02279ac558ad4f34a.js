@@ -6,9 +6,8 @@ var gomoku = (function(){
         };
         
     var init = function() {
-        React.render(<Board size={settings.size}/>, document.getElementById('gomoku-container'));
+        React.render(React.createElement(Board, {size: settings.size}), document.getElementById('gomoku-container'));
         zoomBoard();
-        setUp(15,"freestyle");
     };
     
     var zoomBoard = function(){
@@ -29,8 +28,7 @@ var gomoku = (function(){
     };
     
     var setUp = function(size,newRule){
-        settings.rule = newRule || "freestyle";
-        units = [];
+        settings.rule = newRule;
         for (var i = 0; i < size; i++) {
             units.push([]);
             for(var j = 0; j< size ; j++){
@@ -48,7 +46,7 @@ var gomoku = (function(){
     
     var getColor = function(i,j) {
         if(i < 0 || i > settings.size-1 || j < 0 || j > settings.size-1 || !units[i][j].checked){
-            return "blank";
+            return null;
         }
         else {
             return units[i][j].firstHand;
@@ -138,29 +136,28 @@ var gomoku = (function(){
                 downRight += 1;
             }
             
-            
-            if(!color === getColor(i, j + right + 1)){
+            if(color === !getColor(i, j + right + 1)){
                 horizontal += 1;
             }
-            if(!color === getColor(i, j - left - 1)){
+            if(color === !getColor(i, j - left - 1)){
                 horizontal += 1;
             }
-            if(!color === getColor(i + down + 1,j)){
+            if(color === !getColor(i + down + 1,j)){
                 vertical += 1;
             }
-            if(!color ===  getColor(i - up - 1,j)){
+            if(color ===  !getColor(i - up - 1,j)){
                 vertical += 1;
             }
-            if(!color === getColor(i - upLeft - 1,j - upLeft - 1)){
+            if(color === !getColor(i - upLeft - 1,j - upLeft - 1)){
                 backslash += 1;
             }
-            if(!color === getColor(i + downRight + 1,j + downRight + 1)){
+            if(color === !getColor(i + downRight + 1,j + downRight + 1)){
                 backslash += 1;
             }
-            if (!color === getColor(i - upRight - 1,j + upRight + 1)) {
+            if (color === !getColor(i - upRight - 1,j + upRight + 1)) {
                 slash += 1;
             }
-            if (!color === getColor(i + downLeft + 1,j - downLeft - 1)) {
+            if (color === !getColor(i + downLeft + 1,j - downLeft - 1)) {
                 slash += 1;
             }
             
@@ -264,7 +261,7 @@ var gomoku = (function(){
                             score += 100;
                         }
                         if(gameWin(i, j, !color)){
-                            score += 200;
+                            score += 100;
                         }
                         var counts = checkRow(i, j, color),
                             live = rowIsAlive(i, j, color),
@@ -275,11 +272,7 @@ var gomoku = (function(){
                             
                         AIScoreBase = calScoreBase(counts, live);
                         humanScoreBase = calScoreBase(humanCounts, humanLive);
-                        if(calScore(AIScoreBase)>1){
-                            score += calScore(AIScoreBase) + 1;
-                        }else{
-                            score += calScore(AIScoreBase);
-                        }
+                        score +=calScore(AIScoreBase);
                         score +=calScore(humanScoreBase);
                         
                     }
@@ -313,22 +306,14 @@ var gomoku = (function(){
                 }
             }
             
-            //console.log(unitsScore);
-            //console.log(unitsScore[Math.floor(Math.random()*(unitsScore.length))].pos);
-            console.log(units);
-            if(max == 225 ){
-                return {i:7,j:7};
-            }
-            else{
-                return unitsScore[Math.floor(Math.random()*(unitsScore.length))].pos;
-            }
+            console.log(unitsScore);
+            return unitsScore[Math.floor(Math.random()*(unitsScore.length))].pos;
     };
     
     
     var gameWin = function(i,j,color) {
         var counts = checkRow(i,j,color);
-        //console.log(counts);
-        
+        console.log(counts);
         switch (settings.rule) {
             case 'freestyle':
                 for (var directions in counts) {
@@ -350,7 +335,9 @@ var gomoku = (function(){
                     }
                 }
                 return false;
+                
         }
+        
         
         
     };

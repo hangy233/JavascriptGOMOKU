@@ -6,7 +6,7 @@ var gomoku = (function(){
         };
         
     var init = function() {
-        React.render(<Board size={settings.size}/>, document.getElementById('gomoku-container'));
+        React.render(React.createElement(Board, {size: settings.size}), document.getElementById('gomoku-container'));
         zoomBoard();
         setUp(15,"freestyle");
     };
@@ -30,7 +30,6 @@ var gomoku = (function(){
     
     var setUp = function(size,newRule){
         settings.rule = newRule || "freestyle";
-        units = [];
         for (var i = 0; i < size; i++) {
             units.push([]);
             for(var j = 0; j< size ; j++){
@@ -315,7 +314,7 @@ var gomoku = (function(){
             
             //console.log(unitsScore);
             //console.log(unitsScore[Math.floor(Math.random()*(unitsScore.length))].pos);
-            console.log(units);
+            console.log(max);
             if(max == 225 ){
                 return {i:7,j:7};
             }
@@ -328,7 +327,6 @@ var gomoku = (function(){
     var gameWin = function(i,j,color) {
         var counts = checkRow(i,j,color);
         //console.log(counts);
-        
         switch (settings.rule) {
             case 'freestyle':
                 for (var directions in counts) {
@@ -350,7 +348,9 @@ var gomoku = (function(){
                     }
                 }
                 return false;
+                
         }
+        
         
         
     };

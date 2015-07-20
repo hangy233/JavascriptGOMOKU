@@ -6,7 +6,7 @@ var gomoku = (function(){
         };
         
     var init = function() {
-        React.render(<Board size={settings.size}/>, document.getElementById('gomoku-container'));
+        React.render(React.createElement(Board, {size: settings.size}), document.getElementById('gomoku-container'));
         zoomBoard();
         setUp(15,"freestyle");
     };
@@ -328,7 +328,6 @@ var gomoku = (function(){
     var gameWin = function(i,j,color) {
         var counts = checkRow(i,j,color);
         //console.log(counts);
-        
         switch (settings.rule) {
             case 'freestyle':
                 for (var directions in counts) {
@@ -350,7 +349,9 @@ var gomoku = (function(){
                     }
                 }
                 return false;
+                
         }
+        
         
         
     };

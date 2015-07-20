@@ -6,7 +6,7 @@ var gomoku = (function(){
         };
         
     var init = function() {
-        React.render(<Board size={settings.size}/>, document.getElementById('gomoku-container'));
+        React.render(React.createElement(Board, {size: settings.size}), document.getElementById('gomoku-container'));
         zoomBoard();
         setUp(15,"freestyle");
     };
